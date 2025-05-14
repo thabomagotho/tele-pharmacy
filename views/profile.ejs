@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile - Tele-Pharmacy</title>
+  <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+  <header>
+  <%- include('partials/_navbar') %>
+
+</header>
+
+  <main class="auth-container">
+    
+    <h1>Edit Profile</h1>
+    <!-- Profile Picture Display -->
+  <div class="profile-picture-preview">
+    <img src="<%= user.profilePicture || '/assets/default-user.png' %>" alt="Profile Picture" id="profileImg" />
+  </div>
+
+  <!-- Profile Form -->
+  <form action="/profile" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="profilePicture">Upload Profile Picture</label>
+      <input type="file" name="profilePicture" id="profilePicture" accept="image/*" onchange="previewImage(event)">
+    </div>
+    <form action="/profile" method="POST">
+      <input type="text" name="first_name" value="<%= user.first_name %>" required placeholder="First Name">
+      <input type="text" name="last_name" value="<%= user.last_name %>" required placeholder="Last Name">
+      <input type="email" name="email" value="<%= user.email %>" required readonly placeholder="Email (cannot change)">
+      <input type="text" name="cellphone" value="<%= user.cellphone || '' %>" placeholder="Cellphone">
+      <input type="text" name="address" value="<%= user.address || '' %>" placeholder="Address">
+      <textarea name="medical_history" rows="4" placeholder="Medical History"><%= user.medical_history || '' %></textarea>
+      <button type="submit" class="btn">Save Changes
+      </button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Tele-Pharmacy. All rights reserved.</p>
+  </footer>
+  <script>
+  function previewImage(event) {
+    const output = document.getElementById('profileImg');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  }
+</script>
+<!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Go to top">&#8679;</button>
+  <script>
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopBtn.style.display = "block";
+      } else {
+        scrollToTopBtn.style.display = "none";
+      }
+    };
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

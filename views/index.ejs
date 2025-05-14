@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tele-Pharmacy | Home</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+  <header>
+  <%- include('partials/_navbar') %>
+
+</header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <h1>Your One Stop Pharmacy</h1>
+      <p>Simplify your healthcare with Tele-Pharmacy. Upload your prescriptions, receive professional pharmacist consultations, and enjoy fast, secure delivery - all from the comfort of your home. Your health is our priority. We’re aware of your needs, and we intend to make it easier for you to stay healthy.
+        Your ultimate destination for health and wellness — fast, safe, and easy.</p>
+      <a href="/upload" class="btn">Upload Prescription</a>
+    </section>
+
+    <section class="how-it-works" data-aos="fade-up">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step" data-aos="fade-right" data-aos-delay="100">📤 Step 1: Upload Your Prescription</div>
+        <div class="step" data-aos="fade-right" data-aos-delay="200">✅ Step 2: Approval by Pharmacist</div>
+        <div class="step" data-aos="fade-right" data-aos-delay="300">🚚 Step 3: Delivery & Payment</div>
+      </div>
+    </section>
+
+    <!-- SERVICE HIGHLIGHTS -->
+    <section class="services-highlight">
+      <h2>Our Services</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="assets/scooter.png" alt="Delivery" />
+          <h3>Fast Delivery</h3>
+          <p>Get medications delivered quickly and reliably.</p>
+        </div>
+        <div class="card">
+          <img src="assets/consultation.png" alt="Consultation" />
+          <h3>Consult a Pharmacist</h3>
+          <p>Real-time advice from qualified pharmacists.</p>
+        </div>
+        <div class="card">
+          <img src="assets/shield.png" alt="Secure" />
+          <h3>Safe & Secure</h3>
+          <p>Your privacy and safety are our top priorities.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section class="cta">
+      <h2>Have Questions or Need Help?</h2>
+      <p>Contact our support team anytime.</p>
+      <a href="contact.html" class="btn">Get in Touch</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" target="_blank"><img src="assets/facebook.png" alt="Facebook"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="assets/instagram.png" alt="Instagram"></a>
+        <a href="https://twitter.com/" target="_blank"><img src="assets/twitter.png" alt="Twitter"></a>
+      </div>
+
+      <div class="footer-contact">
+        <p>Email: <a href="mailto:support@telepharmacy.com">support@telepharmacy.com</a></p>
+      </div>
+
+      <div class="footer-legal">
+        <p>&copy; 2025 Tele-Pharmacy. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Animation -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Go to top">&#8679;</button>
+  <script>
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopBtn.style.display = "block";
+      } else {
+        scrollToTopBtn.style.display = "none";
+      }
+    };
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+  <!-- Chatbot Toggle -->
+  <div id="chatbot-toggle" onclick="toggleChatbot()">💬</div>
+
+  <!-- Chatbot Container -->
+  <div id="chatbot-container" class="hidden">
+    <div id="chatbot-header">
+      <span>💊 Ask the Pharmacist</span>
+      <button onclick="toggleChatbot()">✖</button>
+    </div>
+    <div id="chatbot-messages"></div>
+    <form id="chatbot-form">
+      <input type="text" id="chatbot-input" placeholder="Ask about your meds..." required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    function toggleChatbot() {
+      document.getElementById('chatbot-container').classList.toggle('hidden');
+    }
+
+    document.getElementById('chatbot-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const input = document.getElementById('chatbot-input');
+      const message = input.value;
+      appendMessage('user', message);
+      input.value = '';
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+        const data = await res.json();
+        appendMessage('bot', data.reply);
+      } catch {
+        appendMessage('bot', "⚠️ Sorry, I couldn't get a response.");
+      }
+    });
+
+    function appendMessage(sender, text) {
+      const messages = document.getElementById('chatbot-messages');
+      const div = document.createElement('div');
+      div.className = sender;
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+
+  <!-- Dropdown JS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggle = document.getElementById('dropdownToggle');
+      const menu = document.getElementById('dropdownMenu');
+
+      if (toggle && menu) {
+        toggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          menu.classList.toggle('show-dropdown');
+        });
+
+        document.addEventListener('click', function (e) {
+          if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.remove('show-dropdown');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

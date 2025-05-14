@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Services - Tele-Pharmacy</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+  <%- include('partials/_navbar') %>
+
+</header>
+
+  <main>
+    <section class="services-highlight">
+      <h2>Our Services</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="assets/medicine.png" alt="Delivery" />
+          <h3>Medications</h3>
+          <p>Your health, our priority. Explore a comprehensive range of pharmaceuticals for every need.</p>
+        </div>
+        <div class="card">
+          <img src="assets/personal-hygiene.png" alt="Consultation" />
+          <h3>Personal Care</h3>
+          <p>From skincare essentials to hygiene must-haves, we've got you covered for all your personal care needs.</p>
+        </div>
+        <div class="card">
+          <img src="assets/supplementary-food.png" alt="Secure" />
+          <h3>Vitamins & Supplements</h3>
+          <p>Boost your well-being with our selection of vitamins and supplements designed to support your health goals.</p>
+        </div>
+        <div class="card">
+          <img src="assets/heart.png" alt="Delivery" />
+          <h3>Health & Wellness</h3>
+          <p>Discover products to help you lead a healthier lifestyle, from fitness aids to relaxation essentials.</p>
+        </div>
+        <div class="card">
+          <img src="assets/pregnant.png" alt="Consultation" />
+          <h3>Baby & Maternity</h3>
+          <p>Caring for the newest member of your family? Find everything you need for baby's health and comfort here.</p>
+        </div>
+        <div class="card">
+          <img src="assets/supplies.png" alt="Secure" />
+          <h3>First Aid & Medical Supplies</h3>
+          <p>Be prepared for any situation with our comprehensive selection of first aid essentials and medical supplies.</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    <section class="services-section">
+      <h1>Our Services</h1>
+      <ul>
+        <li>Online prescription submission</li>
+        <li>Consultation booking</li>
+        <li>Medication delivery tracking</li>
+      </ul>
+    </section>!-->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Tele-Pharmacy. All rights reserved.</p>
+  </footer>
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Go to top">&#8679;</button>
+  <script>
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopBtn.style.display = "block";
+      } else {
+        scrollToTopBtn.style.display = "none";
+      }
+    };
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

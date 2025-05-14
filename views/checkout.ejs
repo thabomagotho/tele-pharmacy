@@ -1,0 +1,16 @@
+<%- include('partials/header', { user }) %>
+
+<h2>Your Cart</h2>
+<form id="checkoutForm" method="POST" action="/checkout">
+  <input type="hidden" name="cartData" id="cartDataInput">
+  <button type="submit" class="btn">Submit Order</button>
+</form>
+
+<script>
+  document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+    const cartDataInput = document.getElementById("cartDataInput");
+    cartDataInput.value = JSON.stringify(localStorage.getItem('cart'));
+  });
+</script>
+
+<%- include('partials/footer') %>

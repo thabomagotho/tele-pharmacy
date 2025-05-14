@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order History</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- Reuse navbar partial -->
+  <%- include('partials/_navbar') %>
+
+  <main class="container" style="max-width: 800px; margin: 50px auto;">
+    <h1>Your Order History</h1>
+
+    <% if (orders.length === 0) { %>
+      <p>You have no past orders.</p>
+    <% } else { %>
+      <% orders.forEach(order => { %>
+        <div class="order-entry" style="margin-bottom: 30px; padding: 20px; border: 1px solid #000000; border-radius: 5px;">
+          <h3>🗓️ Ordered on <%= new Date(order.createdAt).toLocaleString() %></h3>
+          <ul>
+            <% order.items.forEach(item => { %>
+              <li style="margin-left: 20px;">
+                <strong><%= item.name || item.productName %></strong> — 
+                P<%= item.price.toFixed(2) %> × <%= item.quantity %>
+              </li>
+            <% }) %>
+          </ul>
+          <p><strong>Total:</strong> P<%= order.totalPrice.toFixed(2) %></p>
+        </div>
+      <% }) %>
+    <% } %>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container" style="text-align: center; padding: 20px;">
+      <p>&copy; <script>document.write(new Date().getFullYear())</script> Tele-Pharmacy. All rights reserved.</p>
+    </div>
+  </footer>
+<!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Go to top">&#8679;</button>
+  <script>
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopBtn.style.display = "block";
+      } else {
+        scrollToTopBtn.style.display = "none";
+      }
+    };
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

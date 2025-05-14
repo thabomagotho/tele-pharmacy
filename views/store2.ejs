@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tele-Pharmacy | Store Page 2</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+  <header>
+    <%- include('partials/_navbar') %>
+
+  </header>
+
+  <main class="site-section bg-light">
+    <div class="container">
+      <div class="store-container">
+        <% const products = [
+          { name: "Gaviscon", price: 100, image: "product_09.png" },
+          { name: "Daily Moisturizing Lotion", price: 270, image: "product_10.png" },
+          { name: "Calpol", price: 120, image: "product_11.png" },
+          { name: "Portia M Body Oil", price: 68, image: "product_12.png" },
+          { name: "CLA Core", price: 38, image: "product_13.png" },
+          { name: "CeraVe Sunsreen", price: 38, image: "product_14.png" },
+          { name: "Serum", price: 200, image: "product_15.png" },
+          { name: "Sudafed", price: 118, image: "product_16.png" }
+        ]; %>
+
+        <% products.forEach(product => { %>
+          <div class="store-item">
+            <img src="assets/<%= product.image %>" alt="<%= product.name %>">
+            <h3><%= product.name %></h3>
+            <p class="price">P<%= product.price %>.00</p>
+            <form action="/order" method="POST">
+              <input type="hidden" name="productName" value="<%= product.name %>">
+              <input type="hidden" name="price" value="<%= product.price %>">
+              <input type="hidden" name="email" value="<%= user ? user.email : '' %>">
+              <button type="submit" class="btn-cart">Order Now</button>
+            </form>
+            <form action="/cart/add" method="POST">
+              <input type="hidden" name="productName" value="<%= product.name %>">
+              <input type="hidden" name="price" value="<%= product.price %>">
+              <input type="number" name="quantity" value="1" min="1" required style="width: 50px;">
+              <button type="submit" class="btn-cart">Add to Cart</button>
+            </form>
+
+          </div>
+        <% }) %>
+      </div>
+
+      <div class="site-block-27 text-center">
+        <ul>
+          <li><a href="/store">&lt;</a></li>
+          <li><a href="/store">1</a></li>
+          <li><a href="/store2">2</a></li>
+          <li><a href="#">&gt;</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer bg-light">
+    <div class="container">
+      <p>&copy; <script>document.write(new Date().getFullYear())</script> Tele-Pharmacy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/cart.js"></script>
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Go to top">&#8679;</button>
+  <script>
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopBtn.style.display = "block";
+      } else {
+        scrollToTopBtn.style.display = "none";
+      }
+    };
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

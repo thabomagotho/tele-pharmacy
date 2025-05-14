@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Tele-Pharmacy</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="/" class="logo">
+                <img src="assets/logo.png" alt="">
+                </a>
+                <nav>
+                  <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/store">Store</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/upload">Upload Prescription</a></li>
+                
+                    <% if (user) { %>
+                      <li><span>Welcome, <%= user.first_name %></span></li>
+                      <li><a href="/logout">Logout</a></li>
+                    <% } else { %>
+                      <li><a href="/login">Sign-in/ Register</a></li>
+                     <% } %>
+                  </ul>
+                </nav>
+                
+        </div>
+      </header>
+    
+  <main class="auth-container">
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    
+    <p>Don't have an account? <a href="/register">Register here</a></p>
+  </main>
+<!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Go to top">&#8679;</button>
+  <script>
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopBtn.style.display = "block";
+      } else {
+        scrollToTopBtn.style.display = "none";
+      }
+    };
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

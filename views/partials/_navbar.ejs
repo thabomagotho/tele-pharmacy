@@ -1,0 +1,52 @@
+<!-- views/partials/_navbar.ejs -->
+<div class="navbar">
+  <div class="logo">
+    <a href="/"><img src="/assets/logo.png" alt="Tele-Pharmacy Logo" /></a>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/store">Store</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/upload">Upload Prescription</a></li>
+
+      <% if (user) { %>
+        <li class="dropdown">
+          <button id="dropdownToggle" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            <img src="/assets/updateProfile.png" alt="User Icon" style="width: 24px; height: 24px; vertical-align: middle;"> ▼
+          </button>
+          <div class="dropdown-menu-container">
+            <ul id="dropdownMenu" class="dropdown-menu">
+              <li><a href="/cart">View Cart</a></li>
+              <li><a href="/profile">My Profile</a></li>
+              <li><a href="/order-history">Order History</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </div>
+        </li>
+      <% } else { %>
+        <li><a href="/login">Login / Register</a></li>
+      <% } %>
+    </ul>
+  </nav>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('dropdownToggle');
+    const menu = document.getElementById('dropdownMenu');
+
+    if (toggle && menu) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        menu.classList.toggle('show-dropdown');
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.remove('show-dropdown');
+        }
+      });
+    }
+  });
+</script>
